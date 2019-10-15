@@ -22,13 +22,13 @@ def getToken(docID,text):
 def extractText(text):
     """""
     Function extracts text content from tag <body> for current document
-    @:param:
-
+    @:param: unformatted text from <reuter> to </reuter>
+    @:returns: needed information (article content)
     """""
     return text[text.index("<BODY>")+6:text.index("</BODY>")]
 
-def getFileText(file):
-    f = open(file)
+def generateBlocks(filePath):
+    f = open(filePath)
     line = f.readline()
     docList=[]
     while line:
@@ -40,20 +40,25 @@ def getFileText(file):
                 id = int(getDocId(line))
             line = f.readline()
         doc = extractText(doc)
-        docList.append(getToken(id,doc))
+        terms_streams= getToken(id,doc)
+
 
         line = f.readline()
 
 
 
+def SPIMI_invert(terms_stream):
 
+    return 0
 
 
 if __name__ == '__main__':
+    blocks=[]
     for i in range(22):
         if i <10 :
             filePath = "documents/reut2-00"+str(i)+".sgm"
         else:
             filePath = "documents/reut2-0"+str(i)+".sgm"
-        text = getFileText(filePath)
+         blocks.append(generateBlocks(filePath))
+
 
