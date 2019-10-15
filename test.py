@@ -1,7 +1,7 @@
 import re
+import main
 
-doc = "the Bahia cocoa zone, alleviating the drought since early\n"
+
+
+main.getFileText("textFile")
 #a = doc[doc.index("<body>")+6:doc.index("</body>")]
-b = doc.strip()
-c = b.split(" ")
-print(c)
