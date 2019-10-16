@@ -1,33 +1,44 @@
 import re
+import spimi_util
+
+
 
 def getDocId(line):
     return re.findall('NEWID="(.*?)"',line)[0]
 
 def getToken(docID,text):
-    """""
+    '''
     Function that generates terms strea
-    @:param docID(int), text(string)
-    @:returns a tuple consist of document id and terms inside this document 
-    """""
+    @:param: docID(int), text(string)
+    @:return: a tuple consist of document id and terms of this document
+    '''
 
-    # canceling all digits, replace them to " "(white spaces)
+    # canceling all digits, replace them to ""
     terms = re.sub('\d+','',text)
     # macthing all words, ignoring punctuations , put all terms in terms[] list
     terms = re.findall(r'\w+',terms)
-    #return (docID,terms)
-    print("ID:",docID,"\n","text:\n",terms)
-    #exit()
+    if 'reuter' in terms:
+        terms.remove('reuter')
+    #print("ID:",docID,"\n","text:\n",terms)
     return (docID,terms)
 
 def extractText(text):
-    """""
+    '''
     Function extracts text content from tag <body> for current document
-    @:param:
+    @:param:reuter text with tags
+    @:return: article text without tags
+    '''
+    temp = (text[text.index("<BODY>")+6:text.index("</BODY>")])
+    temp = temp.lower()
+    return temp
 
-    """""
-    return text[text.index("<BODY>")+6:text.index("</BODY>")]
 
-def getFileText(file):
+def tokenization(file):
+    '''
+
+    :param file:
+    :return:
+    '''
     f = open(file,errors='ignore')
     line = f.readline()
     docList=[]
@@ -39,28 +50,35 @@ def getFileText(file):
             if re.search("NEWID=",line):
                 id = int(getDocId(line))
             line = f.readline()
-        if re.search("<BODY>",doc) != None:
+
+        if re.search("<BODY>",doc) != None: # if the document has no content, also append empty term list to it for future convenience.
             doc = extractText(doc)
-        docList.append(getToken(id,doc))
+            docList.append(getToken(id,doc))
+        else:
+            docList.append((id,[]))
+
         line = f.readline()
 
+
+    # once a reuter file is ready, invert it and split it to 2 block and write into disk.
+    spimi_util.spimi_invert(docList)
+
     f.close()
-    return docList
-
-def writeIntoBlock(block,blockID):
-    path = "blocks/block"+str(blockID)+".txt"
-    f = open(path,'w+')
-    f.write(str(block))
-    f.close()
-
-
+    return 0
 
 if __name__ == '__main__':
+    print("initializing......")
     for i in range(22):
+
         if i <10 :
             filePath = "documents/reut2-00"+str(i)+".sgm"
         else:
             filePath = "documents/reut2-0"+str(i)+".sgm"
-        block = getFileText(filePath)
-        writeIntoBlock(block,i)
+        # phase 1, spimi invert and write to blocks
+
+        tokenization(filePath)
+    print("spimi blocks created.")
+        #phase 2, merging blocks
+
+
 
