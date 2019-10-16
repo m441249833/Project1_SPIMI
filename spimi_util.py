@@ -20,7 +20,8 @@ def spimi_invert(token_stream):
             writeTermsToBlock(sorted_terms,dictionary)
             dictionary=dict()
             sorted_terms=[]
-    if len(dictionary.keys()) != 0: # if there are terms left in the dictionary (esspecially for the last document case, there are 500+78 documents, so need to store the remaining 78 docments)
+    if len(dictionary.keys()) != 0:
+        # if there are terms left in the dictionary (esspecially for the last document case, there are 500+78 documents, so need to store the remaining 78 docments)
         sorted_terms = sorted(dictionary)
         writeTermsToBlock(sorted_terms, dictionary)
 

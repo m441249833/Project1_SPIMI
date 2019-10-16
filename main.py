@@ -59,7 +59,6 @@ def tokenization(file):
 
         line = f.readline()
 
-
     # once a reuter file is ready, invert it and split it to 2 block and write into disk.
     spimi_util.spimi_invert(docList)
 
@@ -68,8 +67,8 @@ def tokenization(file):
 
 if __name__ == '__main__':
     print("initializing......")
+    #phase 1, creating disk block through spimi algorithm
     for i in range(22):
-
         if i <10 :
             filePath = "documents/reut2-00"+str(i)+".sgm"
         else:
@@ -78,6 +77,7 @@ if __name__ == '__main__':
 
         tokenization(filePath)
     print("spimi blocks created.")
+
         #phase 2, merging blocks
 
 
