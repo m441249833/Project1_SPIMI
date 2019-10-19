@@ -1,9 +1,8 @@
 global blockID
 blockID = 1
 
-def spimi_invert(token_stream):
+def spimi_invert(token_stream,totalDict):
     dictionary = dict()
-
 
     for token in token_stream:
         id = token[0]
@@ -14,6 +13,11 @@ def spimi_invert(token_stream):
                     dictionary[term].append(id)
             else:
                 dictionary[term] = [id]
+            if totalDict.get(term) !=None:
+                if id not in totalDict[term]:
+                    totalDict[term].append(id)
+            else:
+                totalDict[term]= [id]
         if (id % 500 == 0):
             # for every 500 articles, write into disk block.
             sorted_terms = sorted(dictionary)
@@ -26,7 +30,7 @@ def spimi_invert(token_stream):
         writeTermsToBlock(sorted_terms, dictionary)
 
 
-    return sorted_terms
+    return dictionary
 
 def writeTermsToBlock(sorted_terms,dict):
     global blockID
