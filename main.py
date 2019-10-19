@@ -6,7 +6,6 @@ from nltk import PorterStemmer
 
 
 
-
 def getDocId(line):
     return re.findall('NEWID="(.*?)"',line)[0]
 
@@ -91,17 +90,12 @@ def mergeBlocks(totalDict):
 def process_query(str,dict):
     if re.search(" AND ",str):
         str = str.split(" AND ")
-        for item in str:
-            item.lower()
-        return qu.intersecting_lists(str,totalDict)
+        return qu.intersecting_list(str,totalDict)
     elif re.search(" OR ",str):
-        for item in str:
-            item.lower()
         str = str.split(" OR ")
         return qu.union_list(str,totalDict)
     else:
         return qu.single_list(str,totalDict)
-
 
 
 
@@ -130,9 +124,13 @@ if __name__ == '__main__':
         str = input("Please enter a string(enter -1 to exit):")
         if str == '-1':
             break
-        answer = process_query(str,totalDict)
-        print("query result:")
-        print(answer)
+        try:
+            answer = process_query(str,totalDict)
+            print("query result for \'" + str + "\':")
+            print(answer)
+        except:
+            print("input error")
+
 
 
 
