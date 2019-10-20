@@ -32,6 +32,13 @@ def union_list(l,dict):
         else:
             result +=[]
             print("word \'" + l[i] + "\' is no in the database")
+    order_dict= dict()
+    for item in result:
+        if order_dict.get(item) != None:
+            order_dict[item] +=1
+        else:
+            order_dict[item] = 1
+
     return result
 
 def single_list(word,dict):
