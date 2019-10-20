@@ -1,8 +1,6 @@
 import re
 import spimi_util
 import query_utils as qu
-import nltk
-from nltk import PorterStemmer
 
 
 

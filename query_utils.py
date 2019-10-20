@@ -32,12 +32,19 @@ def union_list(l,dict):
         else:
             result +=[]
             print("word \'" + l[i] + "\' is no in the database")
-    order_dict= dict()
+    order_dict= {}
     for item in result:
         if order_dict.get(item) != None:
             order_dict[item] +=1
         else:
             order_dict[item] = 1
+    result = []
+
+    # put the document id union from the query, but sorted by its frequency
+    print("OR operator detected, sorting by document frequency......")
+    for k in sorted(order_dict, key=order_dict.get, reverse=True):
+        result.append(k)
+
 
     return result
 

@@ -22,7 +22,7 @@ def spimi_invert(token_stream,totalDict):
             # for every 500 articles, write into disk block.
             sorted_terms = sorted(dictionary)
             writeTermsToBlock(sorted_terms,dictionary)
-            dictionary=dict()
+            dictionary={}
             sorted_terms=[]
     if len(dictionary.keys()) != 0:
         # if there are terms left in the dictionary (esspecially for the last document case, there are 500+78 documents, so need to store the remaining 78 docments)

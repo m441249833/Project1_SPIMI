@@ -16,7 +16,14 @@ def intersecting_lists(l, dict):
 
 #main.getFileText("textFile")
 #a = doc[doc.index("<body>")+6:doc.index("</body>")]
-dict = {'a':[1,2,3,4,5],'b':[2,3,4,5,6],'c':[1,3,4,5,6,7]}
+dict = {1:1,2:1,3:1,4:2,5:2,6:1}
+dict2 ={}
+t = {v: k for k, v in dict.items()}
+result = []
+
+for key in dict.keys():
+    result.append(key)
 l = ['a','b','c']
 
-print(intersecting_lists(l,dict))
+for w in sorted(dict, key=dict.get, reverse=True):
+  print (w,dict[w])
