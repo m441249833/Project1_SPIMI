@@ -104,7 +104,7 @@ if __name__ == '__main__':
     print("initializing......")
     totalDict = dict()
     #phase 1, creating disk block through spimi algorithm
-    for i in range(2):
+    for i in range(22):
         if i <10 :
             filePath = "documents/reut2-00"+str(i)+".sgm"
         else:
