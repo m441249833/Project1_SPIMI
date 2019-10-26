@@ -1,0 +1,17 @@
+
+
+
+     There are 3 phases on my project:
+     1. extract document text, store the uninverted list of every 500 articles into disk block, so for 22 reuter files , there are 44 blocks created.
+     2. retrive the 44 blocks created on phase 1, merge their postings lists, then store the merged corpus in to disk blocks,
+        this time, every 25000 terms with postings lists will be sotred in one block.
+     3. preprocessing the user input, detect boolean operators. For AND, intersecting all input words with their postings lists than stored in a dictionary;
+        for OR, union their postings list and sorting by their documents frequency; for single word, just return its postings lists
+
+     For compression technique, I used nltk to form 30 or 150 stopwords from nltk.corpus package.
+     there are 5 steps to filter the dictionary:
+          1. remove all number terms
+          2. lower all capital letters
+          3. remove 30 pre-defined stop words
+          4. remove 150 pre-defined stop words
+          5. using PorterStemmer to stem words
